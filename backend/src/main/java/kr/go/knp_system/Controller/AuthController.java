@@ -1,10 +1,8 @@
 package kr.go.knp_system.Controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.go.knp_system.Service.LdapAuthService;
 
 @RestController
 @RequestMapping("/api/auth")

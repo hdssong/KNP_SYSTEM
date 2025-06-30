@@ -24,15 +24,20 @@ repositories {
 }
 
 dependencies {
-	//implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	
 	implementation 'org.springframework.ldap:spring-ldap-core'
 	implementation 'org.springframework.security:spring-security-ldap'
 	implementation 'com.unboundid:unboundid-ldapsdk'
+	
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
 	compileOnly 'org.projectlombok:lombok'
-	//runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'org.postgresql:postgresql'
+	
 	annotationProcessor 'org.projectlombok:lombok'
+	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

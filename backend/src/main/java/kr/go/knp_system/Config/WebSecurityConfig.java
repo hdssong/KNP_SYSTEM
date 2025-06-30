@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.ldap.authentication.BindAuthenticator;
 import org.springframework.security.ldap.authentication.LdapAuthenticationProvider;
 import org.springframework.security.web.SecurityFilterChain;
@@ -23,9 +24,9 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()    // 인증 없이 허용
                 .anyRequest().authenticated()   // 나머지는 인증 필요
             )
-            .formLogin(Customizer.withDefaults());
+            .formLogin(Customizer.withDefaults())
             // .formLogin(AbstractHttpConfigurer::disable) 
-            // .httpBasic(AbstractHttpConfigurer::disable);
+            .httpBasic(AbstractHttpConfigurer::disable);
 
         return http.build();
     }

@@ -7,12 +7,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.ldap.authentication.BindAuthenticator;
 import org.springframework.security.ldap.authentication.LdapAuthenticationProvider;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableWebSecurity
 public class WebSecurityConfig {
 
     // HTTP 보안 설정 정의
@@ -47,6 +49,8 @@ public class WebSecurityConfig {
         LdapContextSource source = new LdapContextSource();
         source.setUrl("ldap://localhost:8389");
         source.setBase("dc=springframework,dc=org");
+        source.setUserDn("cn=admin,dc=springframework,dc=org");
+        source.setPassword("123");
         return source;
     }
 

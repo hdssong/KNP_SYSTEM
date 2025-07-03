@@ -18,7 +18,8 @@ public class WebConfig{
                 registry.addMapping("/**")  //모든경로
                 .allowedOrigins("http://localhost:3000")    // 허용할 origin React dev 서버
                 .allowedMethods("*")   // GET, POST 등
-                .allowedHeaders("*");
+                .allowedHeaders("*")
+                .allowCredentials(true);
             }
         };
 }

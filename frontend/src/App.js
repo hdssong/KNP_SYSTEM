@@ -2,18 +2,19 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 function App() {
-  const [hello, setHello] = useState('');
+  const [data, setData] = useState('');
 
     useEffect(() => {
-        axios.get('/api/test')
+        axios.get('/api/login')
             .then((res) => {
-                setHello(res.data);
+                setData(res.data)    
             })
+            .catch(err => console.log(err))
     }, []);
     return (
         <div className="App">
-            백엔드 데이터 : {hello}
-        </div>
+            로그인 페이지세요: {data}
+        </div> 
     );
 }
 

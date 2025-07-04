@@ -1,10 +1,15 @@
 package kr.go.knp_system.DTO;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-// @Getter @Setter
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginRequest {
-    private String username;
+    private String name;
     private String password;
 }

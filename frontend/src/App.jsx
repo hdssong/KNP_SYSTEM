@@ -1,8 +1,13 @@
+import { Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+
 function App() {
   return (
-    <>
-      <p>메인페이지</p>
-    </>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/home" element={<Home />} />
+    </Routes>
   );
 }
 

@@ -14,12 +14,12 @@ export default defineConfig([
     plugins: {
       js,
       prettier: pluginPrettier,
+      react: pluginReact,
     },
     rules: {
       "prettier/prettier": "error",
       "react/react-in-jsx-scope": "off",
     },
-    extends: ["js/recommended"],
+    extends: ["js/recommended", ...pluginReact.configs.flat.recommended.extends],
   },
-  pluginReact.configs.flat.recommended,
 ]);

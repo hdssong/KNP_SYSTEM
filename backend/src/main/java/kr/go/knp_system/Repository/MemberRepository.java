@@ -8,7 +8,7 @@ import kr.go.knp_system.Entity.KnpMember;
 
 public interface MemberRepository extends JpaRepository<KnpMember, String> {
 
-    Optional<KnpMember> findByName(String name);
-    boolean existsByName(String name);
+    // Optional<KnpMember> findByName(String name);
+    // boolean existsByName(String name);
     
 }

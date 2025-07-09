@@ -16,7 +16,7 @@ public class WebConfig{
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")  //모든경로
-                .allowedOrigins("http://localhost:3000")    // 허용할 origin React dev 서버
+                .allowedOrigins("http://localhost:5173")    // 허용할 origin React dev 서버
                 .allowedMethods("*")   // GET, POST 등
                 .allowedHeaders("*")
                 .allowCredentials(true);

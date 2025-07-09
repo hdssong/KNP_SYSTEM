@@ -38,15 +38,15 @@ public class KnpMember {
 
     private String userPassword;
 
-    @Column(name="email", unique = true)
-    private String email;
+    // @Column(name="email", unique = true)
+    // private String email;
 
-    @Column(name="create_at")
-    private LocalDateTime createAt;
+    // @Column(name="create_at")
+    // private LocalDateTime createAt;
 
-    @PrePersist
-    protected void onCreate(){
-        this.createAt = LocalDateTime.now();
-    }
+    // @PrePersist
+    // protected void onCreate(){
+    //     this.createAt = LocalDateTime.now();
+    // }
     
 }

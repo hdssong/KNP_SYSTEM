@@ -12,21 +12,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LoginService {
 
-    private final MemberRepository memberRepository;
+    // private final MemberRepository memberRepository;
 
-    public void registerMember(KnpMember knpmember) throws IllegalAccessException{
+    // public void registerMember(KnpMember knpmember) throws IllegalAccessException{
 
-        // if (memberRepository.existsByName(knpmember.getName())) {
-        //     throw new IllegalAccessException("이미 존재하는 사용자 입니다.");
+    //     // if (memberRepository.existsByName(knpmember.getName())) {
+    //     //     throw new IllegalAccessException("이미 존재하는 사용자 입니다.");
             
-        // }
+    //     // }
 
-        memberRepository.save(knpmember);
-    }
+    //     memberRepository.save(knpmember);
+    // }
 
-    public KnpMember findByName(String name){
-        return memberRepository.findByName(name)
-            .orElseThrow(() -> new NoSuchElementException("사용자를 찾을 수 없습니다/"));
+    // public KnpMember findByName(String name){
+    //     return memberRepository.findByName(name)
+    //         .orElseThrow(() -> new NoSuchElementException("사용자를 찾을 수 없습니다/"));
 
-    }
+    // }
 }

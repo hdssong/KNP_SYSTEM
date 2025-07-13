@@ -4,37 +4,35 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ldap.AuthenticationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import kr.go.knp_system.DTO.LoginRequestDto;
 import kr.go.knp_system.Entity.KnpMember;
 import kr.go.knp_system.Service.LoginService;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 로그인
  */
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/auth")
 public class LoginController {
 
-    private final AuthenticationManager authenticationManager;
-    private final LoginService loginService;
+    private final AuthenticationManager authenticationManager = null;
+    private final LoginService loginService = null;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto requestDto) {
         try {
             // 1. LDAP 인증 시도
-            Authentication authentication = authenticationManager.authenticate(
+            Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             requestDto.getEmIdNum(), // UID 기준 인증
                             requestDto.getPassword()));

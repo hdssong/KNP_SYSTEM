@@ -64,7 +64,7 @@ const Login = () => {
     if (id.trim() && pwd.trim()) {
       navigate("/home");
     } else {
-      alert("아이디와 비밀번호를 모두 입력해주세요");
+      alert("아이디와 비밀번호를 모두 입력해주세요ㅎㅎ");
     }
   };
   return (

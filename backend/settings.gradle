@@ -1,1 +1,3 @@
 rootProject.name = 'knp_system'
+
+include 'frontend'

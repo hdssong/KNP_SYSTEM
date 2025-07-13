@@ -7,11 +7,12 @@ export default defineConfig({
   server: {
     port: 5173, // 원하는 포트로 설정
     proxy: {
-      '/api': {
-        target: 'http://localhost:8080', // Spring Boot 백엔드 주소
-        changeOrigin: true,
-        secure: false,
-      }
+      '/auth': 'http://localhost:8080',
+      '/api' : 'http://localhost:8080',
     }
+  },
+  build : {
+    outDir : 'dist',
+    emptyOutDir: true,
   }
 })

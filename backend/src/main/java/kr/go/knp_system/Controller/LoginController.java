@@ -1,62 +1,53 @@
 package kr.go.knp_system.Controller;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import kr.go.knp_system.DTO.LoginRequest;
-import kr.go.knp_system.Entity.KnpMember;
-import kr.go.knp_system.Service.LoginService;
-import lombok.RequiredArgsConstructor;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.ldap.AuthenticationException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import kr.go.knp_system.DTO.LoginRequestDto;
+import kr.go.knp_system.Entity.KnpMember;
+import kr.go.knp_system.Service.LoginService;
 
 /**
  * 로그인
- * 
- * @param loginId - 로그인 ID (사번)
- * @param password -  비밀번호
- * 
- * ** */
-
+ */
 
 @RestController
-//@RequestMapping("/knp_member")
-@RequiredArgsConstructor
+@RequestMapping("/auth")
 public class LoginController {
 
-    private final LoginService loginService;
+    private final AuthenticationManager authenticationManager = null;
+    private final LoginService loginService = null;
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello, Swagger!";
-    }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto requestDto) {
+        try {
+            // 1. LDAP 인증 시도
+            Authentication auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            requestDto.getEmIdNum(), // UID 기준 인증
+                            requestDto.getPassword()));
 
-    // 로그인 첫 화면
-    // @GetMapping("/api/login")
-    // public String login() {
-    //     return "login page";
-    // }
+            // 2. DB 조회
+            Optional<KnpMember> userOpt = loginService.findByEmIdNum(requestDto.getEmIdNum());
+            if (userOpt.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("DB에 사용자 정보가 없습니다.");
+            }
 
-    // //
-    @GetMapping("/{name}")
-    public ResponseEntity<KnpMember> getUser(@PathVariable String name) {
-        return ResponseEntity.ok(loginService.findByName(name));
-    }
+            // 3. 인증 성공 + DB 조회 성공
+            return ResponseEntity.ok(userOpt.get());
 
-    @PostMapping
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        KnpMember user = loginService.findByName(loginRequest.getName());
-
-        // if (!user.getPassword().equals(loginRequest.getPassword())) {
-        //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호가 틀렸습니다.");
-        // }
-
-        return ResponseEntity.ok("로그인 성공");
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("LDAP 인증 실패");
+        }
     }
 }

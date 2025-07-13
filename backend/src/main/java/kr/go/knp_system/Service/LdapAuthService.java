@@ -1,8 +1,6 @@
 package kr.go.knp_system.Service;
 
-import org.springframework.stereotype.Service;
-
-@Service
+// @Service
 public class LdapAuthService {
 
 }

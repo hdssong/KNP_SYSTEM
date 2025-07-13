@@ -4,32 +4,37 @@ import styled from "styled-components";
 
 const LoginWrapper = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100vh;
   background-color: #f5f5f5;
 `;
 
+const Title = styled.h1`
+  text-align: center;
+  margin-bottom: 30px;
+`;
+
 const LoginForm = styled.form`
-  width: 400px;
-  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  width: 480px;
+  padding: 48px;
   background-color: white;
-  border-radius: 12px;
+  border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 `;
 
 const Label = styled.label`
-  display: block;
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 8px;
 `;
 
 const Input = styled.input`
-  width: 80%;
-  height: 48px;
+  height: 32px;
   font-size: 16px;
-  padding: 12px;
-  margin-bottom: 20px;
+  padding: 14px;
+  margin-bottom: 30px;
   border: 1px solid #ccc;
   border-radius: 6px;
 `;
@@ -38,12 +43,14 @@ const LoginButton = styled.button`
   width: 50%;
   height: 48px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #0056b3;
   color: white;
   border: none;
   border-radius: 6px;
+  margin: 0 auto;
+  cursor: pointer;
   &:hover {
-    background-color: #0056b3;
+    background-color: #3a80cb;
   }
 `;
 
@@ -63,6 +70,7 @@ const Login = () => {
   return (
     <LoginWrapper>
       <LoginForm onSubmit={hadleLogin}>
+        <Title>로그인</Title>
         <Label>아이디</Label>
         <Input type="text" value={id} onChange={(e) => setId(e.target.value)} />
         <Label>비밀번호</Label>

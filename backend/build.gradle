@@ -24,14 +24,17 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
-	
-	// implementation 'org.springframework.ldap:spring-ldap-core'
-	// implementation 'org.springframework.security:spring-security-ldap'
-	// implementation 'com.unboundid:unboundid-ldapsdk'
-	
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-config'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-ldap' //추가
+	implementation 'org.springframework.ldap:spring-ldap-core'
+	implementation 'com.unboundid:unboundid-ldapsdk'
+	implementation 'org.springframework.security:spring-security-ldap'
+	
 
 	implementation 'org.postgresql:postgresql:42.7.2'
 	
@@ -44,7 +47,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	// testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
@@ -52,43 +55,15 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-// def frontendDir = "$projectDir/frontend"
+task buildReact(type: Exec) {
+    workingDir '../frontend'
+    commandLine 'npm', 'run', 'build'
+}
 
-// sourceSets {
-// 	main {
-// 		resources { srcDirs = ["$projectDir/src/main/resources"]
-// 		}
-// 	}
-// }
+task copyReactBuild(type: Copy) {
+    dependsOn buildReact
+    from('../frontend/dist')
+    into('src/main/resources/static')
+}
 
-// processResources { dependsOn "copyReactBuildFiles" }
-
-// task installReact(type: Exec) {
-// 	workingDir "$frontendDir"
-// 	inputs.dir "$frontendDir"
-// 	group = BasePlugin.BUILD_GROUP
-// 	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-// 		commandLine "npm.cmd", "audit", "fix"
-// 		commandLine 'npm.cmd', 'install' }
-// 	else {
-// 		commandLine "npm", "audit", "fix" commandLine 'npm', 'install'
-// 	}
-// }
-
-// task buildReact(type: Exec) {
-// 	dependsOn "installReact"
-// 	workingDir "$frontendDir"
-// 	inputs.dir "$frontendDir"
-// 	group = BasePlugin.BUILD_GROUP
-// 	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-// 		commandLine "npm.cmd", "run-script", "build"
-// 	} else {
-// 		commandLine "npm", "run-script", "build"
-// 	}
-// }
-
-// task copyReactBuildFiles(type: Copy) {
-// 	dependsOn "buildReact"
-// 	from "$frontendDir/build"
-// 	into "$projectDir/src/main/resources/static"
-// }
+tasks.build.dependsOn(copyReactBuild)

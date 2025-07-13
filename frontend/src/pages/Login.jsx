@@ -34,7 +34,7 @@ const Input = styled.input`
   height: 32px;
   font-size: 16px;
   padding: 14px;
-  margin-bottom: 30px;
+  margin-bottom: 36px;
   border: 1px solid #ccc;
   border-radius: 6px;
 `;
@@ -59,7 +59,7 @@ const Login = () => {
 
   const [id, setId] = useState("");
   const [pwd, setPwd] = useState("");
-  const hadleLogin = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault(); // 폼 제출시 새로고침되는 거 막음
     if (id.trim() && pwd.trim()) {
       navigate("/home");
@@ -69,13 +69,13 @@ const Login = () => {
   };
   return (
     <LoginWrapper>
-      <LoginForm onSubmit={hadleLogin}>
+      <LoginForm onSubmit={handleLogin}>
         <Title>로그인</Title>
-        <Label>아이디</Label>
-        <Input type="text" value={id} onChange={(e) => setId(e.target.value)} />
-        <Label>비밀번호</Label>
-        <Input type="text" value={pwd} onChange={(e) => setPwd(e.target.value)} />
-        <LoginButton>로그인</LoginButton>
+        <Label htmlFor="id">아이디</Label>
+        <Input type="text" value={id} id="id" onChange={(e) => setId(e.target.value)} />
+        <Label htmlFor="password">비밀번호</Label>
+        <Input type="password" value={pwd} id="password" onChange={(e) => setPwd(e.target.value)} />
+        <LoginButton type="submit">로그인</LoginButton>
       </LoginForm>
     </LoginWrapper>
   );

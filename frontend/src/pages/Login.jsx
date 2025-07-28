@@ -9,7 +9,17 @@ const LoginWrapper = styled.div`
   height: 100vh;
   background-color: #f5f5f5;
 `;
+const Logo = styled.img`
+  width: 360px;
+  height: auto;
+`;
 
+const Divider = styled.div`
+  width: 1px;
+  height: 60%;
+  background-color: #ccc;
+  margin: 0 80px; /* 좌우 여백 */
+`;
 const Title = styled.h1`
   text-align: center;
   margin-bottom: 30px;
@@ -18,7 +28,7 @@ const Title = styled.h1`
 const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 480px;
+  width: 400px;
   padding: 48px;
   background-color: white;
   border-radius: 6px;
@@ -69,6 +79,8 @@ const Login = () => {
   };
   return (
     <LoginWrapper>
+      <Logo src="src/assets/logo.png" alt="logo" />
+      <Divider />
       <LoginForm onSubmit={handleLogin}>
         <Title>로그인</Title>
         <Label htmlFor="id">아이디</Label>

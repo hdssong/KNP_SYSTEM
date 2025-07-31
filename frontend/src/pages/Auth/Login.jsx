@@ -7,8 +7,9 @@ const LoginWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: calc(100vh-64px);
   background-color: #f5f5f5;
+  margin-top: 100px;
 `;
 const Logo = styled.img`
   width: 350px;
@@ -17,7 +18,7 @@ const Logo = styled.img`
 
 const Divider = styled.div`
   width: 1px;
-  height: 60%;
+  height: 60vh;
   background-color: #ccc;
   margin: 0 80px; /* 좌우 여백 */
 `;

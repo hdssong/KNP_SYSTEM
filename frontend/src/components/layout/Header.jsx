@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Typography, Box, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import useAuthStore from "../../store/authStore";
 
 const Logo = styled.img`
   height: 48px;
@@ -28,6 +29,7 @@ const CustomToolbar = styled(Toolbar)`
 `;
 
 function Header() {
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   return (
     <CustomAppBar position="sticky" elevation={0}>
       <CustomToolbar>
@@ -39,22 +41,26 @@ function Header() {
         </Link>
         <Spacer />
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <IconButton
-            sx={{
-              color: "#555",
-              "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
-            }}
-          >
-            <NotificationsIcon fontSize="medium" />
-          </IconButton>
-          <IconButton
-            sx={{
-              color: "#555",
-              "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
-            }}
-          >
-            <AccountCircle fontSize="medium" />
-          </IconButton>
+          {isLoggedIn && (
+            <>
+              <IconButton
+                sx={{
+                  color: "#555",
+                  "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
+                }}
+              >
+                <NotificationsIcon fontSize="medium" />
+              </IconButton>
+              <IconButton
+                sx={{
+                  color: "#555",
+                  "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
+                }}
+              >
+                <AccountCircle fontSize="medium" />
+              </IconButton>
+            </>
+          )}
         </Box>
       </CustomToolbar>
     </CustomAppBar>

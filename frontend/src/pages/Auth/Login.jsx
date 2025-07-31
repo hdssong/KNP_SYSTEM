@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { TextField, Button, Typography, Card, Box, CardContent } from "@mui/material";
+import useAuthStore from "../../store/authStore";
 
 const LoginWrapper = styled.div`
   display: flex;
@@ -39,12 +40,14 @@ const LoginCard = styled(Card)`
 
 const Login = () => {
   const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
 
   const [id, setId] = useState("");
   const [pwd, setPwd] = useState("");
   const handleLogin = (e) => {
     e.preventDefault(); // 폼 제출시 새로고침되는 거 막음
     if (id.trim() && pwd.trim()) {
+      login({ id }); // 로그인시 상태 변경
       navigate("/home");
     } else {
       alert("아이디와 비밀번호를 모두 입력해주세요!");

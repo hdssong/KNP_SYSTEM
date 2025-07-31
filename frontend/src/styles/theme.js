@@ -8,7 +8,7 @@ const theme = createTheme({
   },
 
   typography: {
-    fontFamily: '"Noto Sans KR", sans-serif',
+    fontFamily: '"Asta Sans", "Noto Sans KR", sans-serif',
     h5: { fontWeight: 600 },
   },
 });

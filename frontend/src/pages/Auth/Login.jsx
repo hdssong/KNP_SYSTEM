@@ -1,31 +1,40 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { TextField, Button, Typography, Card, CardContent } from "@mui/material";
+import { TextField, Button, Typography, Card, Box, CardContent } from "@mui/material";
 
 const LoginWrapper = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh-64px);
-  background-color: #f5f5f5;
-  margin-top: 100px;
+  width: 100%;
 `;
 const Logo = styled.img`
-  width: 350px;
+  width: 300px;
   height: auto;
 `;
 
-const Divider = styled.div`
-  width: 1px;
-  height: 60vh;
-  background-color: #ccc;
-  margin: 0 80px; /* 좌우 여백 */
+const LeftSection = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  pointer-events: none;
+`;
+
+const RightSection = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
 `;
 
 const LoginCard = styled(Card)`
   width: 400px;
   padding: 24px;
+  box-shadow: none;
 `;
 
 const Login = () => {
@@ -38,48 +47,51 @@ const Login = () => {
     if (id.trim() && pwd.trim()) {
       navigate("/home");
     } else {
-      alert("아이디와 비밀번호를 모두 입력해주세요ㅎㅎ");
+      alert("아이디와 비밀번호를 모두 입력해주세요!");
     }
   };
   return (
     <LoginWrapper>
-      <Logo src="src/assets/logo.png" alt="logo" />
-      <Divider />
-      <LoginCard>
-        <CardContent>
-          <Typography variant="h5" align="center" gutterBottom>
-            로그인
-          </Typography>
-          <form onSubmit={handleLogin}>
-            <TextField
-              fullWidth
-              label="아이디"
-              variant="outlined"
-              margin="normal"
-              value={id}
-              onChange={(e) => setId(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="비밀번호"
-              type="password"
-              variant="outlined"
-              margin="normal"
-              value={pwd}
-              onChange={(e) => setPwd(e.target.value)}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              sx={{ mt: 2, height: "48px", fontSize: "18px" }}
-            >
+      <LeftSection>
+        <Logo src="src/assets/logo.png" alt="logo" />
+      </LeftSection>
+      <RightSection>
+        <LoginCard>
+          <CardContent>
+            <Typography variant="h4" align="center" gutterBottom sx={{ mb: 5, fontWeight: 600 }}>
               로그인
-            </Button>
-          </form>
-        </CardContent>
-      </LoginCard>
+            </Typography>
+            <form onSubmit={handleLogin}>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 5 }}>
+                <TextField
+                  fullWidth
+                  label="아이디"
+                  variant="outlined"
+                  value={id}
+                  onChange={(e) => setId(e.target.value)}
+                />
+                <TextField
+                  fullWidth
+                  label="비밀번호"
+                  type="password"
+                  variant="outlined"
+                  value={pwd}
+                  onChange={(e) => setPwd(e.target.value)}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  sx={{ height: "48px", fontSize: "18px" }}
+                >
+                  로그인
+                </Button>
+              </Box>
+            </form>
+          </CardContent>
+        </LoginCard>
+      </RightSection>
     </LoginWrapper>
   );
 };

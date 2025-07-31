@@ -1,60 +1,63 @@
 // src/components/layout/Header.jsx
 import styled from "styled-components";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Box,
-  Button,
-  Divider,
-  IconButton,
-  Avatar,
-} from "@mui/material";
+import { AppBar, Toolbar, Typography, Box, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
 const Logo = styled.img`
-  height: 80px;
-  width: 50px;
-  margin-right: 8px;
+  height: 48px;
+  width: auto;
+  margin-right: 12px;
 `;
 
 const Spacer = styled.div`
-  flex-grow: 1; /* 왼쪽 로고와 오른쪽 메뉴 사이를 밀어냄 */
+  flex-grow: 1;
+`;
+
+const CustomAppBar = styled(AppBar)`
+  background-color: #ffffff;
+  color: #333;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #e0e0e0;
 `;
 
 const CustomToolbar = styled(Toolbar)`
-  padding-left: 50px;
-  padding-right: 50px;
+  padding: 0 40px;
+  min-height: 64px;
 `;
+
 function Header() {
   return (
-    <AppBar position="static" color="background" elevation={0}>
+    <CustomAppBar position="sticky" elevation={0}>
       <CustomToolbar>
-        <Link to="/home">
+        <Link to="/home" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
           <Logo src="/src/assets/logo.png" alt="logo" />
+          <Typography variant="h6" sx={{ color: "black" }}>
+            사건 Issue
+          </Typography>
         </Link>
-        <Typography
-          variant="h5"
-          component={Link}
-          to="/"
-          style={{ textDecoration: "none", color: "black" }}
-        >
-          사건 Issue
-        </Typography>
         <Spacer />
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <IconButton color="background">
-            <NotificationsIcon fontSize="large" />
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <IconButton
+            sx={{
+              color: "#555",
+              "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
+            }}
+          >
+            <NotificationsIcon fontSize="medium" />
           </IconButton>
-          <IconButton color="background">
-            <AccountCircle fontSize="large" />
+          <IconButton
+            sx={{
+              color: "#555",
+              "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
+            }}
+          >
+            <AccountCircle fontSize="medium" />
           </IconButton>
         </Box>
       </CustomToolbar>
-      <Divider />
-    </AppBar>
+    </CustomAppBar>
   );
 }
 

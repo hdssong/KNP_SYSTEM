@@ -50,4 +50,12 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("LDAP 인증 실패");
         }
     }
+
+    // @PostMapping("/logout")
+    // public String postMethodName(@RequestBody String entity) {
+    //     //TODO: process POST request
+        
+    //     return entity;
+    // }
+    
 }

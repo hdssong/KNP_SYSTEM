@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { TextField, Button, Typography, Card, Box, CardContent } from "@mui/material";
 import useAuthStore from "../../store/authStore";
+import logo from "/public/logo.png";
 
 const LoginWrapper = styled.div`
   display: flex;
@@ -56,7 +57,7 @@ const Login = () => {
   return (
     <LoginWrapper>
       <LeftSection>
-        <Logo src="src/assets/logo.png" alt="logo" />
+        <Logo src={logo} alt="logo" />
       </LeftSection>
       <RightSection>
         <LoginCard>

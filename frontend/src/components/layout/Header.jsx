@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import useAuthStore from "../../store/authStore";
+import logo from "/public/logo.png";
 
 const Logo = styled.img`
   height: 48px;
@@ -34,7 +35,7 @@ function Header() {
     <CustomAppBar position="sticky" elevation={0}>
       <CustomToolbar>
         <Link to="/home" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
-          <Logo src="/src/assets/logo.png" alt="logo" />
+          <Logo src={logo} alt="logo" />
           <Typography variant="h6" sx={{ color: "black" }}>
             사건 Issue
           </Typography>

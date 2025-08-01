@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import useAuthStore from "../../store/authStore";
-import logo from "/public/logo.png";
+import logo from "../../assets/logo.png";
 
 const Logo = styled.img`
   height: 48px;

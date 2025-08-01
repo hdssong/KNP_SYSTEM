@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { TextField, Button, Typography, Card, Box, CardContent } from "@mui/material";
 import useAuthStore from "../../store/authStore";
-import logo from "/public/logo.png";
+import logo from "../../assets/logo.png";
 
 const LoginWrapper = styled.div`
   display: flex;

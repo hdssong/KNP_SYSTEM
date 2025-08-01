@@ -56,7 +56,7 @@ const Login = () => {
   return (
     <LoginWrapper>
       <LeftSection>
-        <Logo src="src/assets/logo.png" alt="logo" />
+        <Logo src="/logo.png" alt="logo" />
       </LeftSection>
       <RightSection>
         <LoginCard>

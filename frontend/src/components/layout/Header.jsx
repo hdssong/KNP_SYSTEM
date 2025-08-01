@@ -34,7 +34,7 @@ function Header() {
     <CustomAppBar position="sticky" elevation={0}>
       <CustomToolbar>
         <Link to="/home" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
-          <Logo src="/src/assets/logo.png" alt="logo" />
+          <Logo src="/logo.png" alt="logo" />
           <Typography variant="h6" sx={{ color: "black" }}>
             사건 Issue
           </Typography>

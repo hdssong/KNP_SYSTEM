@@ -32,7 +32,7 @@ const CustomToolbar = styled(Toolbar)`
 function Header() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   return (
-    <CustomAppBar position="sticky" elevation={0}>
+    <CustomAppBar position="fixed" elevation={0}>
       <CustomToolbar>
         <Link to="/home" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
           <Logo src={logo} alt="logo" />

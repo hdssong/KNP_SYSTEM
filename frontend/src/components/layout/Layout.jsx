@@ -2,6 +2,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Box } from "@mui/material";
 import GlobalStyle from "../../styles/GlobalStyle";
+import Sidebar from "./Sidebar";
 
 function Layout({ children }) {
   return (
@@ -14,6 +15,7 @@ function Layout({ children }) {
           minHeight: "100vh",
         }}
       >
+        <Sidebar />
         <Header />
         <Box sx={{ flex: 1, display: "flex", alignItems: "stretch", justifyContent: "center" }}>
           {children}

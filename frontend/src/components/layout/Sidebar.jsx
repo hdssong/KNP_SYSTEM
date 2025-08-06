@@ -37,8 +37,8 @@ function Sidebar() {
           <ListItemIcon>
             <HomeIcon color="secondary" />
           </ListItemIcon>
-          <ListItemText primary="조서 작성 (순경/형사)" sx={{ color: "#6c757d" }} />
-          {/* 로그인된 유저가 순경 또는 형사인지에 따라 다른 조서 작성 폼을 보여줘야 함. */}
+          <ListItemText primary="조서 작성" sx={{ color: "#6c757d" }} />
+          {/* TODO 로그인된 유저가 순경 또는 형사인지에 따라 다른 조서 작성 폼을 보여줘야 함. */}
         </ListItem>
         <ListItem button component={Link} to="/dashboard">
           <ListItemIcon>

@@ -26,23 +26,23 @@ import lombok.Setter;
 @Builder
 public class KnpMember {
     
-    @Id // 기본키로
+    @Id                 // 기본키로
     @Column(name = "em_idnum")  // 사번 
-    //@GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 키 생성을 데이터베이스에 위임
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 키 생성을 데이터베이스에 위임
     private String emIdNum; 
-
-    @Column(name="em_userid",nullable = false)  // 아이디
-    private String emUserId;
 
     @Column(name="em_name",nullable = false)    //이름
     private String emName;    
 
-    @Column(name="password",nullable = false)   //비밀번호
-    private String password;
+    @Column(name="em_user_id",nullable = false)  // 아이디
+    private String emUserId;
+    
+    @Column(name="em_password",nullable = false)   //비밀번호
+    private String emPasswd;
 
     @Column(name="email", unique = true)    //이메일
     private String email;
 
-    @Column(name="create_at")   //생성시각
-    private Timestamp createAt;    
+    @Column(name="role", unique = true)    //계급
+    private String role;
 }

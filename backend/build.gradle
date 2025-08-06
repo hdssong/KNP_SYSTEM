@@ -36,8 +36,8 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-ldap'
 	
 
-	implementation 'org.postgresql:postgresql:42.7.2'
-	
+	//implementation 'org.postgresql:postgresql:42.7.2'
+	implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.2'
 	// Swagger (Springdoc OpenAPI)
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 

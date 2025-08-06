@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { TextField, Button, Typography, Card, Box, CardContent } from "@mui/material";
 import useAuthStore from "../../store/authStore";
 import logo from "../../assets/logo.png";
+import { login } from "../../api/auth";
 
 const LoginWrapper = styled.div`
   display: flex;
@@ -41,17 +42,24 @@ const LoginCard = styled(Card)`
 
 const Login = () => {
   const navigate = useNavigate();
-  const login = useAuthStore((state) => state.login);
+  const loginUser = useAuthStore((state) => state.loginUser);
 
-  const [id, setId] = useState("");
-  const [pwd, setPwd] = useState("");
-  const handleLogin = (e) => {
+  const [emIdNum, setEmIdNum] = useState("");
+  const [emPasswd, setEmPasswd] = useState("");
+  const handleLogin = async (e) => {
     e.preventDefault(); // 폼 제출시 새로고침되는 거 막음
-    if (id.trim() && pwd.trim()) {
-      login({ id }); // 로그인시 상태 변경
+    if (!emIdNum.trim() || !emPasswd.trim()) {
+      return alert("아이디와 비밀번호를 모두 입력해주세요!");
+    }
+
+    try {
+      const data = await login({ emIdNum, emPasswd });
+      console.log("응답 데이터", data);
+      loginUser(data);
       navigate("/home");
-    } else {
-      alert("아이디와 비밀번호를 모두 입력해주세요!");
+    } catch (error) {
+      console.log(error);
+      alert(error.response?.data?.message || "로그인에 실패했습니다.");
     }
   };
   return (
@@ -71,16 +79,16 @@ const Login = () => {
                   fullWidth
                   label="아이디"
                   variant="outlined"
-                  value={id}
-                  onChange={(e) => setId(e.target.value)}
+                  value={emIdNum}
+                  onChange={(e) => setEmIdNum(e.target.value)}
                 />
                 <TextField
                   fullWidth
                   label="비밀번호"
                   type="password"
                   variant="outlined"
-                  value={pwd}
-                  onChange={(e) => setPwd(e.target.value)}
+                  value={emPasswd}
+                  onChange={(e) => setEmPasswd(e.target.value)}
                 />
                 <Button
                   type="submit"

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Drawer, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
+import CreateIcon from "@mui/icons-material/Create";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -32,17 +34,17 @@ function Sidebar() {
           </ListItemIcon>
           <ListItemText primary="대시보드" sx={{ color: "#6c757d" }} />
         </ListItem>
-
+        {/* 클릭 시 이동 경로 수정 필요 */}
         <ListItem button component={Link} to="/dashboard">
           <ListItemIcon>
-            <HomeIcon color="secondary" />
+            <CreateIcon color="secondary" />
           </ListItemIcon>
           <ListItemText primary="조서 작성" sx={{ color: "#6c757d" }} />
           {/* TODO 로그인된 유저가 순경 또는 형사인지에 따라 다른 조서 작성 폼을 보여줘야 함. */}
         </ListItem>
         <ListItem button component={Link} to="/dashboard">
           <ListItemIcon>
-            <HomeIcon color="secondary" />
+            <FormatListBulletedIcon color="secondary" />
           </ListItemIcon>
           <ListItemText primary="사건 페이지" sx={{ color: "#6c757d" }} />
         </ListItem>

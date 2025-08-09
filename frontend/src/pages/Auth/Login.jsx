@@ -42,7 +42,7 @@ const LoginCard = styled(Card)`
 
 const Login = () => {
   const navigate = useNavigate();
-  const loginUser = useAuthStore((state) => state.loginUser);
+  const loginUser = useAuthStore((state) => state.loginUser); //현재 로그인된 유저
 
   const [emIdNum, setEmIdNum] = useState("");
   const [emPasswd, setEmPasswd] = useState("");
@@ -56,7 +56,8 @@ const Login = () => {
       const data = await login({ emIdNum, emPasswd });
       console.log("응답 데이터", data);
       loginUser(data);
-      navigate("/home");
+      localStorage.setItem("auth", JSON.stringify(data));
+      navigate("/");
     } catch (error) {
       console.log(error);
       alert(error.response?.data?.message || "로그인에 실패했습니다.");

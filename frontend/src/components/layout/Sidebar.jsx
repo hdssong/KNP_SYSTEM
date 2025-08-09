@@ -5,7 +5,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import CreateIcon from "@mui/icons-material/Create";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuthStore from "../../store/authStore";
 
 const drawerWidth = 240;
 
@@ -25,6 +26,12 @@ const CustomDrawer = styled(Drawer)`
 `;
 
 function Sidebar() {
+  const navigate = useNavigate();
+  const logout = useAuthStore((state) => state.logout);
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
   return (
     <CustomDrawer variant="permanent" anchor="left">
       <List sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -35,20 +42,20 @@ function Sidebar() {
           <ListItemText primary="대시보드" sx={{ color: "#6c757d" }} />
         </ListItemButton>
         {/* 클릭 시 이동 경로 수정 필요 */}
-        <ListItemButton component={Link} to="/dashboard">
+        <ListItemButton component={Link} to="/write">
           <ListItemIcon>
             <CreateIcon color="secondary" />
           </ListItemIcon>
           <ListItemText primary="조서 작성" sx={{ color: "#6c757d" }} />
           {/* TODO 로그인된 유저가 순경 또는 형사인지에 따라 다른 조서 작성 폼을 보여줘야 함. */}
         </ListItemButton>
-        <ListItemButton component={Link} to="/dashboard">
+        <ListItemButton component={Link} to="/list">
           <ListItemIcon>
             <FormatListBulletedIcon color="secondary" />
           </ListItemIcon>
           <ListItemText primary="사건 페이지" sx={{ color: "#6c757d" }} />
         </ListItemButton>
-        <ListItemButton component={Link} to="/logout">
+        <ListItemButton onClick={handleLogout}>
           <ListItemIcon>
             <LogoutIcon color="secondary" />
           </ListItemIcon>

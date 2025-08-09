@@ -27,7 +27,8 @@ const CustomDrawer = styled(Drawer)`
 
 function Sidebar() {
   const navigate = useNavigate();
-  const logout = useAuthStore((state) => state.logout);
+  const { logout, user } = useAuthStore();
+  const role = user?.role;
   const handleLogout = () => {
     logout();
     navigate("/login");
@@ -35,25 +36,29 @@ function Sidebar() {
   return (
     <CustomDrawer variant="permanent" anchor="left">
       <List sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-        <ListItemButton component={Link} to="/dashboard">
-          <ListItemIcon>
-            <HomeIcon color="secondary" />
-          </ListItemIcon>
-          <ListItemText primary="대시보드" sx={{ color: "#6c757d" }} />
-        </ListItemButton>
-        {/* 클릭 시 이동 경로 수정 필요 */}
+        {role === "형사" && (
+          <>
+            <ListItemButton component={Link} to="/dashboard">
+              <ListItemIcon>
+                <HomeIcon color="secondary" />
+              </ListItemIcon>
+              <ListItemText primary="대시보드" sx={{ color: "#6c757d" }} />
+            </ListItemButton>
+            <ListItemButton component={Link} to="/list">
+              <ListItemIcon>
+                <FormatListBulletedIcon color="secondary" />
+              </ListItemIcon>
+              <ListItemText primary="사건 페이지" sx={{ color: "#6c757d" }} />
+            </ListItemButton>
+          </>
+        )}
+
         <ListItemButton component={Link} to="/write">
           <ListItemIcon>
             <CreateIcon color="secondary" />
           </ListItemIcon>
           <ListItemText primary="조서 작성" sx={{ color: "#6c757d" }} />
           {/* TODO 로그인된 유저가 순경 또는 형사인지에 따라 다른 조서 작성 폼을 보여줘야 함. */}
-        </ListItemButton>
-        <ListItemButton component={Link} to="/list">
-          <ListItemIcon>
-            <FormatListBulletedIcon color="secondary" />
-          </ListItemIcon>
-          <ListItemText primary="사건 페이지" sx={{ color: "#6c757d" }} />
         </ListItemButton>
         <ListItemButton onClick={handleLogout}>
           <ListItemIcon>

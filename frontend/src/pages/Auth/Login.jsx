@@ -57,7 +57,7 @@ const Login = () => {
       console.log("응답 데이터", data);
       loginUser(data);
       localStorage.setItem("auth", JSON.stringify(data));
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
       alert(error.response?.data?.message || "로그인에 실패했습니다.");

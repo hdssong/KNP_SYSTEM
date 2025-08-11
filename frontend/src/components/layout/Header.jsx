@@ -88,7 +88,7 @@ function Header() {
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
   const handleLogoClick = () => {
-    navigate(isLoggedIn ? "/" : "/login");
+    navigate(isLoggedIn ? "/dashboard" : "/login");
   };
 
   const handleAccountClick = () => {

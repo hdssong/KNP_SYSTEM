@@ -28,7 +28,7 @@ const CustomDrawer = styled(Drawer)`
 function Sidebar() {
   const navigate = useNavigate();
   const { logout, user } = useAuthStore();
-  const role = user?.role;
+  // const role = user?.role;
   const handleLogout = () => {
     logout();
     navigate("/login");
@@ -36,22 +36,21 @@ function Sidebar() {
   return (
     <CustomDrawer variant="permanent" anchor="left">
       <List sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-        {role === "형사" && (
-          <>
-            <ListItemButton component={Link} to="/dashboard">
-              <ListItemIcon>
-                <HomeIcon color="secondary" />
-              </ListItemIcon>
-              <ListItemText primary="대시보드" sx={{ color: "#6c757d" }} />
-            </ListItemButton>
-            <ListItemButton component={Link} to="/list">
-              <ListItemIcon>
-                <FormatListBulletedIcon color="secondary" />
-              </ListItemIcon>
-              <ListItemText primary="사건 페이지" sx={{ color: "#6c757d" }} />
-            </ListItemButton>
-          </>
-        )}
+        {/* role에 따라 sidebar 메뉴 달리 보이게 구현해야 함. */}
+        <>
+          <ListItemButton component={Link} to="/dashboard">
+            <ListItemIcon>
+              <HomeIcon color="secondary" />
+            </ListItemIcon>
+            <ListItemText primary="대시보드" sx={{ color: "#6c757d" }} />
+          </ListItemButton>
+          <ListItemButton component={Link} to="/list">
+            <ListItemIcon>
+              <FormatListBulletedIcon color="secondary" />
+            </ListItemIcon>
+            <ListItemText primary="사건 페이지" sx={{ color: "#6c757d" }} />
+          </ListItemButton>
+        </>
 
         <ListItemButton component={Link} to="/write">
           <ListItemIcon>

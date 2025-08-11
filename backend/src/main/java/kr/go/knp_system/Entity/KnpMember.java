@@ -42,8 +42,8 @@ public class KnpMember {
     // @Column(name="role", unique = true)    //계급
     // private String role;
 
-    @Column(name="dept_id",nullable = false)
-    private String dept_id;  
+    // @Column(name="dept_id",nullable = false)
+    // private String dept_id;  
     
     // @ManyToOne(fetch = FetchType.LAZY)
     // @JoinColumn(name = "dept_id")

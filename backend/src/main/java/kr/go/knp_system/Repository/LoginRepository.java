@@ -16,8 +16,11 @@ import kr.go.knp_system.Entity.KnpMember;
  */
 @Repository
 public interface LoginRepository extends JpaRepository<KnpMember, String> {
-
-    Optional<KnpMember> findByEmIdNum(String emIdNum);  // 사번 찾아라
-    //boolean existsByName(String name);
     
+    Optional<KnpMember> findByEmIdNum(String emIdNum);  // 사번 찾아라
+    // Optional<KnpMember> findByEmName(String emName);
+    //KnpMember findByEmIdNum(String emIdNum);
+
+    // Boolean existsByUsername(String username);
+
 }

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class KnpRank {
     
     @Id
-    @Column(name = "rank_id")   //직급코드
+    @Column(name = "rank_id",nullable = false)   //직급코드
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String rankId;
 

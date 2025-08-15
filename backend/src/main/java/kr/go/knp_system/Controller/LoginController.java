@@ -1,21 +1,19 @@
 package kr.go.knp_system.Controller;
 
-import java.util.Optional;
+import java.util.Map;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import kr.go.knp_system.Entity.KnpMember;
 import kr.go.knp_system.RequestDTO.LoginRequestDto;
-import kr.go.knp_system.Service.LoginService;
-import lombok.RequiredArgsConstructor;
+import kr.go.knp_system.RequestDTO.MemberDetails;
+import kr.go.knp_system.jwt.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -23,60 +21,37 @@ import lombok.extern.slf4j.Slf4j;
  * 
  */
 @Slf4j
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/auth") // 공통 URL prefix
 public class LoginController {
 
-    private final LoginService loginService;
+    private final AuthenticationManager authenticationManager;
+    private final JWTUtil jwtUtil;
 
-    @Operation(summary = "로그인 요청", description = "LDAP 인증 후 사용자 정보를 반환합니다.")
-    @ApiResponse(responseCode = "200", description = "로그인 성공")
-    @ApiResponse(responseCode = "401", description = "인증 실패")
-    @ApiResponse(responseCode = "404", description = "DB에 사용자 정보 없음")
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDto requestDto) {
+    public LoginController(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+        this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
+    }
 
-        log.info("🟢 로그인 시도: {}, {}", requestDto.getEmIdNum(), requestDto.getEmPasswd());
+    @PostMapping(value = "/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto req) {
 
+        Authentication auth = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(req.getEmIdNum(), req.getEmPasswd())
+        );
 
-        try {
-            // 1. LDAP 인증
-            //boolean isAuthenticated = loginService.authenticate(requestDto.getEmIdNum(), requestDto.getEmPasswd());
+        MemberDetails principal = (MemberDetails) auth.getPrincipal();
 
-            // if (!isAuthenticated) {
-            //     log.warn("Ldap 인증 실패");
+        String token = jwtUtil.createJwt(
+            principal.getUsername(),   // emIdNum을 username으로 쓰는 설정과 맞춰야 함
+            "ROLE_USER",
+            60 * 60 * 1000L            // 1시간
+        );
 
-            //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("LDAP 인증 실패");
-            // }
-
-            // 2. DB 조회
-            Optional<KnpMember> emOpt = loginService.findByEmIdNum(requestDto.getEmIdNum());
-
-            if (emOpt.isEmpty() || !emOpt.get().getEmPasswd().equals(requestDto.getEmPasswd())) {
-                log.warn("사용자가 없습니다.",requestDto.getEmIdNum());
-                
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("아이디 또는 비밀번호가 올바르지 않습니다.");
-            }
-
-            // 3. 성공
-            KnpMember knpUser = emOpt.get();
-            System.out.println(knpUser);
-            log.info("로그인 성공", knpUser.getEmName());
-
-            return ResponseEntity.ok(knpUser);
-
-        } catch (AuthenticationException e) {
-            log.error("❌ 인증 처리 중 예외 발생", e);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증 실패");
-        } catch (Exception e) {
-            log.error("❌ 로그인 중 예외 발생", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류");
-        }
+        return ResponseEntity.ok(Map.of("accessToken", token));
     }
 
     @PostMapping("/logout")
-    @Operation(summary = "로그아웃")
     public ResponseEntity<?> logout() {
         log.info("로그아웃 요청");
         return ResponseEntity.ok("로그아웃 되었습니다");

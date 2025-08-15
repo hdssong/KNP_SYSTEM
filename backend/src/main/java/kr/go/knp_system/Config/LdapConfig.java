@@ -1,4 +1,4 @@
-package kr.go.knp_system.Config;
+package kr.go.knp_system.config;
 
 public class LdapConfig {
     

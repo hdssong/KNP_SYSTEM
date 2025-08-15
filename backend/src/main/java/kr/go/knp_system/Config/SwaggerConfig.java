@@ -1,4 +1,4 @@
-package kr.go.knp_system.Config;
+package kr.go.knp_system.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

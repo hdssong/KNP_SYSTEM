@@ -1,6 +1,6 @@
-package kr.go.knp_system.ResponseDTO;
+package kr.go.knp_system.domain.knpmember.dto;
 
-import kr.go.knp_system.Entity.KnpMember;
+import kr.go.knp_system.domain.knpmember.entity.KnpMember;
 import lombok.Getter;
 import lombok.Setter;
 

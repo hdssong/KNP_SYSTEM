@@ -1,4 +1,4 @@
-package kr.go.knp_system.Entity;
+package kr.go.knp_system.domain.knpmember.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,11 +17,10 @@ public class KnpRank {
     
     @Id
     @Column(name = "rank_id",nullable = false)   //직급코드
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String rankId;
 
     @Column(name = "rank_name",nullable = false)    // 직급명
-    private String rank_name;
+    private String rankName;
 
 
 }

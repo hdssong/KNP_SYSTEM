@@ -1,11 +1,12 @@
-package kr.go.knp_system.Repository;
+package kr.go.knp_system.domain.knpmember.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import kr.go.knp_system.Entity.KnpMember;
+import jakarta.transaction.Transactional;
+import kr.go.knp_system.domain.knpmember.entity.KnpMember;
 
 /**
  * 
@@ -17,10 +18,8 @@ import kr.go.knp_system.Entity.KnpMember;
 @Repository
 public interface LoginRepository extends JpaRepository<KnpMember, String> {
     
-    Optional<KnpMember> findByEmIdNum(String emIdNum);  // 사번 찾아라
-    // Optional<KnpMember> findByEmName(String emName);
-    //KnpMember findByEmIdNum(String emIdNum);
+    Optional<KnpMember> findByEmIdNum(String emIdNum);
 
-    // Boolean existsByUsername(String username);
-
+    @Transactional
+    public void deleteByEmIdNum(String emIdNum);
 }

@@ -1,4 +1,4 @@
-package kr.go.knp_system.Entity;
+package kr.go.knp_system.domain.knpmember.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,7 +23,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class KnpHR {
 
-    // 개별 배치 PK (겸직용)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "hr_id")
@@ -31,11 +30,6 @@ public class KnpHR {
 
     @Column(name = "em_idnum")
     private String emIdNum;
-
-    // 회원(사번) FK : 다대일
-    // @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    // @JoinColumn(name = "em_idnum", referencedColumnName = "em_idnum", nullable = false)
-    // private KnpMember knpMember;
 
     @Column(name = "em_name", length = 100, nullable = false)
     private String emName;
@@ -49,8 +43,4 @@ public class KnpHR {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "rank_id", referencedColumnName = "rank_id", nullable = false)
     private KnpRank knpRank;
-
-    // 주/겸 여부가 필요하면 컬럼 추가
-    // @Column(name="is_primary", nullable=false)
-    // private boolean primary;
 }

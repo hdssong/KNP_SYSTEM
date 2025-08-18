@@ -1,4 +1,4 @@
-package kr.go.knp_system.RequestDTO;
+package kr.go.knp_system.domain.knpmember.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-// @AllArgsConstructor
 @NoArgsConstructor
 public class LoginRequestDto{
     

@@ -1,17 +1,9 @@
-package kr.go.knp_system.Entity;
-
-import java.util.List;
-
+package kr.go.knp_system.domain.knpmember.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,15 +13,6 @@ import lombok.NoArgsConstructor;
 */
 
 @Entity
-// @Table(
-//     name = "knp_org",
-//     indexes = {
-//         @Index(name = "idx_org_full_path", columnList = "org_full_path")
-//     },
-//     uniqueConstraints = {
-//         @UniqueConstraint(name = "knp_org_unique", columnNames = "org_code")
-//     }
-// )
 @Getter
 @NoArgsConstructor
 public class KnpOrg {
@@ -75,12 +58,4 @@ public class KnpOrg {
 
     @Column(name = "org_full_path_name", length = 255) // 한글 전체 경로(있으면 좋음)
     private String orgFullPathName;
-
-    // @OneToMany(mappedBy = "knpOrg", fetch = FetchType.LAZY) //HR 엔터티 매핑(1:N)
-    // private List<KnpHR> hrList;
-
-    // @OneToMany(mappedBy = "knpOrg",fetch = FetchType.LAZY)  //knpMember 엔터티 매핑 (1:N)
-    // private List<KnpMember> knpMembers;
-    
-
 }

@@ -17,9 +17,10 @@ public class WebConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // 모든경로
                         .allowedOrigins("http://localhost:5173") // 허용할 origin React dev 서버
-                        .allowedMethods("*") // GET, POST 등
+                        .allowedMethods("GET","POST","PUT","DELETE","OPTIONS") // GET, POST 등
+                        .allowCredentials(true)
                         .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .exposedHeaders("Set-Cookies","Authorization");
             }
         };
     }

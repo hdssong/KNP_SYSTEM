@@ -1,19 +1,22 @@
-package kr.go.knp_system.Controller;
+package kr.go.knp_system.controller;
 
 import java.util.Map;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.go.knp_system.RequestDTO.LoginRequestDto;
-import kr.go.knp_system.RequestDTO.MemberDetails;
-import kr.go.knp_system.jwt.JWTUtil;
+import kr.go.knp_system.domain.knpmember.dto.LoginRequestDto;
+import kr.go.knp_system.domain.knpmember.dto.MemberDetails;
+import kr.go.knp_system.domain.knpmember.service.KnpMemberService;
+import kr.go.knp_system.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -25,31 +28,50 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/auth") // 공통 URL prefix
 public class LoginController {
 
-    private final AuthenticationManager authenticationManager;
-    private final JWTUtil jwtUtil;
+    private final KnpMemberService knpMemberService;
 
-    public LoginController(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
-        this.authenticationManager = authenticationManager;
-        this.jwtUtil = jwtUtil;
+    public LoginController(KnpMemberService knpMemberService) {
+        this.knpMemberService = knpMemberService;
     }
 
-    @PostMapping(value = "/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDto req) {
+    // 자체 로그인 유저 존재 확인
+    // @PostMapping(value = "/user/exist", consumes = MediaType.APPLICATION_JSON_VALUE)
+    // public ResponseEntity<Boolean> existUserApi(
+    //         @Validated(LoginRequestDto.class) @RequestBody LoginRequestDto dto) {
+    //     return ResponseEntity.ok(knpMemberService.exist(dto));
+    // }
 
-        Authentication auth = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(req.getEmIdNum(), req.getEmPasswd())
-        );
+    // @PostMapping(value = "/login")
+    // public ResponseEntity<?> login(@RequestBody LoginRequestDto req) {
 
-        MemberDetails principal = (MemberDetails) auth.getPrincipal();
+    // }
 
-        String token = jwtUtil.createJwt(
-            principal.getUsername(),   // emIdNum을 username으로 쓰는 설정과 맞춰야 함
-            "ROLE_USER",
-            60 * 60 * 1000L            // 1시간
-        );
+    // private final AuthenticationManager authenticationManager;
+    // private final JWTUtil jwtUtil;
 
-        return ResponseEntity.ok(Map.of("accessToken", token));
-    }
+    // public LoginController(AuthenticationManager authenticationManager, JWTUtil
+    // jwtUtil) {
+    // this.authenticationManager = authenticationManager;
+    // this.jwtUtil = jwtUtil;
+    // }
+
+    // @PostMapping(value = "/login")
+    // public ResponseEntity<?> login(@RequestBody LoginRequestDto req) {
+
+    // Authentication auth = authenticationManager.authenticate(
+    // new UsernamePasswordAuthenticationToken(req.getEmIdNum(), req.getEmPasswd())
+    // );
+
+    // MemberDetails principal = (MemberDetails) auth.getPrincipal();
+
+    // String token = jwtUtil.createJWT(
+    // principal.getUsername(), // emIdNum을 username으로 쓰는 설정과 맞춰야 함
+    // "ROLE_USER",
+    // 60 * 60 * 1000L // 1시간
+    // );
+
+    // return ResponseEntity.ok(Map.of("accessToken", token));
+    // }
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout() {

@@ -1,4 +1,4 @@
-package kr.go.knp_system.Controller;
+package kr.go.knp_system.controller;
 
 public class CaseController {
     

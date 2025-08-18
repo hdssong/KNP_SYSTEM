@@ -9,6 +9,7 @@ import { login } from "../../api/auth";
 const LoginWrapper = styled.div`
   display: flex;
   width: 100%;
+  height: 100%;
 `;
 const Logo = styled.img`
   width: 300px;

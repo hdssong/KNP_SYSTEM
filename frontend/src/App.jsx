@@ -4,7 +4,9 @@ import Login from "./pages/Auth/Login";
 import Layout from "./components/layout/Layout";
 import { useEffect } from "react";
 import useAuthStore from "./store/authStore";
-import Main from "./pages/Main";
+import CaseList from "./pages/CaseList";
+import CopForm from "./pages/CopForm";
+import DetectiveForm from "./pages/DetectiveForm";
 import DashBoard from "./pages/DashBoard";
 
 function App() {
@@ -21,6 +23,9 @@ function App() {
         {/* 나중에 path 수정 필요 - 로그인 여부에 따라 보여줄 화면 달라지게 */}
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/cases" element={<CaseList />} />
+        <Route path="/write-cop" element={<CopForm />} />
+        <Route path="/write-detective" element={<DetectiveForm />} />
       </Routes>
     </Layout>
   );

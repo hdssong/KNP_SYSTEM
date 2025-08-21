@@ -101,6 +101,7 @@ public class SecurityConfig {
                                 "/index.html", // vite 정적 자원
                                 "/static/**",
                                 "/reports",
+                                "/cases/**",
                                 "/reports/**") // vite 정적 자원
                                 
                         // "/assets/**")

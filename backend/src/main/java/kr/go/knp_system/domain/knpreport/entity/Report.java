@@ -1,8 +1,6 @@
 package kr.go.knp_system.domain.knpreport.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,7 +35,7 @@ public class Report extends BaseTimeEntity {
     private String reportCategory; // 접수구분 (112, 문자신고 등)
 
     @Column(name = "report_type", length = 20,nullable = false)
-    private String reportType; // 신고 유형 (절도, 폭행 등)
+    private String reportType; // 신고 유형 (절도, 폭행 등)(고소,타인신고,피해자신고)
 
     @Column(name = "location", length = 200,nullable = false)
     private String location; // 신고 발생 장소

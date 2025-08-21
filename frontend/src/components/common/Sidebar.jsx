@@ -44,7 +44,7 @@ function Sidebar() {
             </ListItemIcon>
             <ListItemText primary="대시보드" sx={{ color: "#6c757d" }} />
           </ListItemButton>
-          <ListItemButton component={Link} to="/list">
+          <ListItemButton component={Link} to="/cases">
             <ListItemIcon>
               <FormatListBulletedIcon color="secondary" />
             </ListItemIcon>
@@ -52,11 +52,18 @@ function Sidebar() {
           </ListItemButton>
         </>
 
-        <ListItemButton component={Link} to="/write">
+        <ListItemButton component={Link} to="/write-cop">
           <ListItemIcon>
             <CreateIcon color="secondary" />
           </ListItemIcon>
-          <ListItemText primary="조서 작성" sx={{ color: "#6c757d" }} />
+          <ListItemText primary="순경 조서 작성" sx={{ color: "#6c757d" }} />
+          {/* TODO 로그인된 유저가 순경 또는 형사인지에 따라 다른 조서 작성 폼을 보여줘야 함. */}
+        </ListItemButton>
+        <ListItemButton component={Link} to="/write-detective">
+          <ListItemIcon>
+            <CreateIcon color="secondary" />
+          </ListItemIcon>
+          <ListItemText primary="형사 조서 작성" sx={{ color: "#6c757d" }} />
           {/* TODO 로그인된 유저가 순경 또는 형사인지에 따라 다른 조서 작성 폼을 보여줘야 함. */}
         </ListItemButton>
         <ListItemButton onClick={handleLogout}>

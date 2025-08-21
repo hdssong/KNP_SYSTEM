@@ -1,22 +1,11 @@
 package kr.go.knp_system.controller;
 
-import java.util.Map;
-
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.go.knp_system.domain.knpmember.dto.LoginRequestDto;
-import kr.go.knp_system.domain.knpmember.dto.MemberDetails;
 import kr.go.knp_system.domain.knpmember.service.KnpMemberService;
-import kr.go.knp_system.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**

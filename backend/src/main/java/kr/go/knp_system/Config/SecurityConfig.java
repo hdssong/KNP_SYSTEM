@@ -99,7 +99,10 @@ public class SecurityConfig {
                                 // "/auth/logout", // 로그아웃
                                 "/", // React 루트 페이지
                                 "/index.html", // vite 정적 자원
-                                "/static/**") // vite 정적 자원
+                                "/static/**",
+                                "/reports",
+                                "/reports/**") // vite 정적 자원
+                                
                         // "/assets/**")
                         .permitAll()
                         .anyRequest().authenticated())

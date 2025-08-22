@@ -6,12 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.go.knp_system.domain.knpcase.dto.CaseResponseDto;
 import kr.go.knp_system.domain.knpcase.dto.CaseSaveDto;
+import kr.go.knp_system.domain.knpcase.dto.CaseUpdateDto;
 import kr.go.knp_system.domain.knpcase.service.CaseService;
 
 @RestController
@@ -47,5 +49,13 @@ public class CaseApiController {
     public Long save(@RequestBody CaseSaveDto caseSaveDto) {
         return caseService.save(caseSaveDto);
     }
+    
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Long> updateCase(@PathVariable("id") Long id,@RequestBody CaseUpdateDto responseDto) {
 
+        Long updateId = caseService.update(id, responseDto);
+
+        return ResponseEntity.ok(updateId);
+    }
+    
 }

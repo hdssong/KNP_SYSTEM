@@ -18,12 +18,13 @@ public class CaseResponseDto {
     private LocalDateTime occurDate; // 사건발생일자
     private String caseCharge; // 죄명
     private String caseData; // 사건개요
+    private String crimeResearchData; // 범죄사실작성
     private int ongoingDate; // 사건 경과 일수 (계산용)
     private CaseStatus caseStatus;  // 사건 상태 (한글 ENUM)
     private String suspect; // 피의자
     private String victim; // 피해자
     private String emName; // 사건담당형사
-    // private String evidenceFile; // 증거자료 (파일 경로)
+    private String evidenceFile; // 증거자료 (파일 경로)
     private String closureIdnum; // 종결번호
 
     public CaseResponseDto (CaseList caseEntity){
@@ -36,11 +37,13 @@ public class CaseResponseDto {
         this.occurDate = caseEntity.getOccurDate();
         this.caseCharge = caseEntity.getCaseCharge();
         this.caseData = caseEntity.getCaseData();
+        this.crimeResearchData = caseEntity.getCrimeResearchData();
         this.ongoingDate = caseEntity.getOngoingDate();
         this.caseStatus = caseEntity.getCaseStatus();
         this.suspect = caseEntity.getSuspect();
         this.victim = caseEntity.getVictim();
         this.emName = caseEntity.getEvidenceFile();
+        this.evidenceFile = caseEntity.getEvidenceFile();
         this.closureIdnum = caseEntity.getClosureIdnum();
     }
 }

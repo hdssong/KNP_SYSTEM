@@ -57,6 +57,9 @@ public class CaseList extends BaseTimeEntity {
     @Column(name = "case_data", length = 1000)
     private String caseData; // 사건개요
 
+    @Column(name = "crime_research_data",length = 5000)
+    private String crimeResearchData;
+
     @Column(name = "ongoing_date")
     private int ongoingDate; // 사건 경과 일수 (계산용)
 
@@ -81,8 +84,8 @@ public class CaseList extends BaseTimeEntity {
 
     @Builder
     public CaseList(String caseIdNum, String reportId, String reportType, LocalDateTime caseReceiveDate,
-            LocalDateTime caseEndDate, LocalDateTime occurDate, String caseCharge, String caseData,
-            int ongoingDate, CaseStatus caseStatus,String suspect, String victim, String emName, String closureIdnum) {
+            LocalDateTime caseEndDate, LocalDateTime occurDate, String caseCharge, String caseData,String crimeResearchData,
+            int ongoingDate, CaseStatus caseStatus,String suspect, String victim, String emName, String evidenceFile,String closureIdnum) {
         this.caseIdnum = caseIdNum;
         this.reportId = reportId;
         this.reportType = reportType;
@@ -91,11 +94,19 @@ public class CaseList extends BaseTimeEntity {
         this.occurDate = occurDate;
         this.caseCharge = caseCharge;
         this.caseData = caseData;
+        this.crimeResearchData = crimeResearchData;
         this.ongoingDate = ongoingDate;
         this.caseStatus = caseStatus;
         this.suspect = suspect;
         this.victim = victim;
         this.emName = emName;
+        this.evidenceFile = evidenceFile;
         this.closureIdnum = closureIdnum;
+    }
+
+    public void update(String caseData, String crimeResearchData, String evidenceFile){
+        this.caseData = caseData;
+        this.crimeResearchData = crimeResearchData;
+        this.evidenceFile = evidenceFile;
     }
 }

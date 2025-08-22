@@ -8,15 +8,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.go.knp_system.domain.knpcase.dto.CaseResponseDto;
 import kr.go.knp_system.domain.knpcase.dto.CaseSaveDto;
+import kr.go.knp_system.domain.knpcase.dto.CaseUpdateDto;
 import kr.go.knp_system.domain.knpcase.entity.CaseList;
 import kr.go.knp_system.domain.knpcase.repository.CaseRepository;
+import kr.go.knp_system.domain.knpmember.repository.KnpHRRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class CaseService {
 
     private final CaseRepository caseRepository;
+    private final KnpHRRepository knpHRRepository;
 
     // 사건 조회 (전체 리스트)
     @Transactional(readOnly = true)
@@ -49,4 +53,15 @@ public class CaseService {
     }
     // 사건 수정
 
+    @Transactional
+    public Long update(Long caseIdnum, CaseUpdateDto dto) {
+
+        CaseList caseOne = caseRepository.findById(caseIdnum)
+                .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
+
+        caseOne.update(dto.getCaseData(), dto.getCrimeResearchData(),dto.getEvidenceFile());
+
+        return caseOne.getId();
+
+    }
 }

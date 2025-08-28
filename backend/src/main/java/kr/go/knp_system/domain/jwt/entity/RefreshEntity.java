@@ -1,41 +1,33 @@
 package kr.go.knp_system.domain.jwt.entity;
 
-import java.time.LocalDateTime;
-
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import kr.go.knp_system.domain.knpreport.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "jwt_refresh_entity")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RefreshEntity {
+public class RefreshEntity extends BaseTimeEntity{
 
+    
     @Id
-    @Column(name = "em_idnum")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(name = "em_idnum",nullable = false,length = 50)
     private String emIdNum;
-
-    @Column(name = "em_name", nullable = false)
-    private String emName;
 
     @Column(name = "refresh", nullable = false, length = 512)
     private String refresh;
-
-    @CreatedDate
-    @Column(name = "created_date", updatable = false, nullable = false)
-    private LocalDateTime createdDate;
-
 }

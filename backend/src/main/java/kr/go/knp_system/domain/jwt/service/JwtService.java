@@ -22,10 +22,15 @@ public class JwtService {
 
     // 1. JWT Refresh 토큰 발급 후 저장 메소드
     @Transactional
-    public void addRefresh(String emIdNum, String emName, String refreshToken) {
+    public void addRefresh(String emIdNum,String refreshToken) {
+
+        // 같은 사용자로 기존 토큰 있으면 지우로 새로 저장
+        if (refreshRepository.existsByEmIdNum(emIdNum)) {
+            refreshRepository.deleteByEmIdNum(emIdNum);            
+        }
+
         RefreshEntity entity = RefreshEntity.builder()
                 .emIdNum(emIdNum)
-                .emName(emName)
                 .refresh(refreshToken)
                 .build();
 
@@ -53,13 +58,19 @@ public class JwtService {
     // Refresh 토큰으로 Access 토큰 재발급 로직 (Rotate 포함)
     @Transactional
     public JWTResponseDTO refreshRotate(RefreshRequestDTO dto) {
-
+        
+        // 검증
         String refreshToken = dto.getRefreshToken();
 
         // Refresh 토큰 검증
         Boolean isValid = JWTUtil.isValid(refreshToken, false);
+        
         if (!isValid) {
             throw new RuntimeException("유효하지 않은 refreshToken입니다.");
+        }
+
+        if (!existsRefresh(refreshToken)) {
+            throw new RuntimeException("등록되지 않은 토큰 입니다.");
         }
 
         // 정보 추출
@@ -71,13 +82,15 @@ public class JwtService {
         String newRefreshToken = JWTUtil.createJWT(emIdNum, role, false);
 
         // 기존 Refresh 토큰 DB 삭제 후 신규 추가
-        RefreshEntity newRefreshEntity = RefreshEntity.builder()
-                .emIdNum(emIdNum)
-                .refresh(newRefreshToken)
-                .build();
+        // RefreshEntity newRefreshEntity = RefreshEntity.builder()
+        //         .emIdNum(emIdNum)
+        //         .refresh(newRefreshToken)
+        //         .build();
 
         removeRefresh(refreshToken);
-        refreshRepository.save(newRefreshEntity);
+        addRefresh(emIdNum, newRefreshToken);
+        
+        // refreshRepository.save(newRefreshEntity);
 
         return new JWTResponseDTO(newAccessToken, newRefreshToken);
     }

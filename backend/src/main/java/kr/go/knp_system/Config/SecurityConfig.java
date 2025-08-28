@@ -96,12 +96,13 @@ public class SecurityConfig {
                         .requestMatchers(
                                 // "/error",
                                 "/auth/login", // 로그인 처리
-                                // "/auth/logout", // 로그아웃
+                                "/auth/logout", // 로그아웃
                                 "/", // React 루트 페이지
                                 "/index.html", // vite 정적 자원
                                 "/static/**",
                                 "/reports",
                                 "/cases/**",
+                                "/jwt/**",
                                 "/reports/**") // vite 정적 자원
                                 
                         // "/assets/**")

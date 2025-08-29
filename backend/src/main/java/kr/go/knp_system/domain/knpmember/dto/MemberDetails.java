@@ -21,6 +21,7 @@ public class MemberDetails implements UserDetails{
 
     @Override
     public String getPassword() {
+        System.out.println("*************************"+knpMember.getEmPasswd());
         return knpMember.getEmPasswd();
     }
 

@@ -1,43 +1,44 @@
 import { create } from "zustand";
+import { login as loginApi, logoutServer, wireAuthHelpers } from "../api/auth";
 
-// jwt 토큰 완성되기 전 localstorage로 일단 테스트하기
-const STORAGE_KEY = "auth";
-
-const useAuthStore = create((set) => ({
+const useAuthStore = create((set, get) => ({
   isLoggedIn: false,
   user: null,
-  loginUser: (userData) => {
-    set({ isLoggedIn: true, user: userData });
+  accessToken: null,
+  refreshToken: null,
+
+  // axios 인터셉터가 쓸 getter/setter
+  getAccessToken: () => get().accessToken,
+  getRefreshToken: () => get().refreshToken,
+  setTokens: (access, refresh) => set({ accessToken: access, refreshToken: refresh }),
+
+  loginUser: async (loginData) => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
-      console.log("로그인 완료:", userData);
+      const { accessToken, refreshToken, user } = await loginApi(loginData);
+      set({ isLoggedIn: true, user, accessToken, refreshToken });
+      console.log("로그인 완료:", user);
+      return true;
     } catch (error) {
-      console.error("로컬스토리지 저장 실패:", err);
+      console.error("로그인 실패:", error?.response?.status, error?.response?.data ?? error);
+      return false;
     }
   },
-  logout: () => {
-    set({ isLoggedIn: false, user: null });
+  logout: async () => {
     try {
-      localStorage.removeItem(STORAGE_KEY);
-      console.log("로그아웃 완료");
-    } catch (err) {
-      console.error("로컬스토리지 삭제 실패:", err);
-    }
+      await logoutServer();
+    } catch {}
+    set({ isLoggedIn: false, user: null, accessToken: null, refreshToken: null });
+    console.log("로그아웃 완료");
   },
-  initFromStorage: () => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY); //가공 전 데이터
-      if (!raw) {
-        console.log("저장된 로그인 정보 없음");
-        return;
-      }
-      const parse = JSON.parse(raw);
-      set({ isLoggedIn: true, user: parse });
-      console.log("스토리지에서 로그인 정보 복원:", parse);
-    } catch (err) {
-      console.error("로컬스토리지 불러오기 실패:", err);
-    }
-  },
+  initSession: async () => false, // 새로고침 시 로그인 유지 기능은 나중에 구현 예정
 }));
+// axios에 스토어 헬퍼 주입
+
+wireAuthHelpers(
+  () => useAuthStore.getState().getAccessToken(),
+  () => useAuthStore.getState().getRefreshToken(),
+  (a, r) => useAuthStore.getState().setTokens(a, r),
+  () => useAuthStore.getState().logout()
+);
 
 export default useAuthStore;

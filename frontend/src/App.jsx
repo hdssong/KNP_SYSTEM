@@ -2,20 +2,12 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Auth/Login";
 
 import Layout from "./components/layout/Layout";
-import { useEffect } from "react";
-import useAuthStore from "./store/authStore";
 import CaseList from "./pages/CaseList";
 import CopForm from "./pages/CopForm";
 import DetectiveForm from "./pages/DetectiveForm";
 import DashBoard from "./pages/DashBoard";
 
 function App() {
-  // 앱 실행시 로그인 상태 가져오기
-  const initFromStorage = useAuthStore((state) => state.initFromStorage);
-  useEffect(() => {
-    initFromStorage();
-  }, [initFromStorage]);
-
   return (
     <Layout>
       <Routes>

@@ -93,10 +93,11 @@ export async function login(loginData) {
     throw error;
   }
 }
-export async function logoutServer() {
+export async function logoutServer(refreshToken) {
   try {
-    await raw.post(`/auth/logout`);
+    await raw.post(`/auth/logout`, { refreshToken });
   } catch (err) {
     console.log("서버 로그아웃 실패", err);
+    throw err;
   }
 }

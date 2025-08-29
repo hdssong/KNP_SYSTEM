@@ -57,10 +57,9 @@ const Login = () => {
     });
     try {
       const data = await loginUser({ emIdNum, emPasswd });
-      console.log("응답 데이터", data);
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
+      console.log("로그인 실패: ", error);
       alert(error.response?.data?.message || "로그인에 실패했습니다.");
     }
   };

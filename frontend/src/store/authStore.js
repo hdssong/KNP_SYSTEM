@@ -16,19 +16,24 @@ const useAuthStore = create((set, get) => ({
     try {
       const { accessToken, refreshToken, user } = await loginApi(loginData);
       set({ isLoggedIn: true, user, accessToken, refreshToken });
-      console.log("로그인 완료:", user);
       return true;
     } catch (error) {
       console.error("로그인 실패:", error?.response?.status, error?.response?.data ?? error);
-      return false;
+      throw error;
     }
   },
   logout: async () => {
     try {
-      await logoutServer();
-    } catch {}
-    set({ isLoggedIn: false, user: null, accessToken: null, refreshToken: null });
-    console.log("로그아웃 완료");
+      const rt = get().refreshToken;
+      if (rt) {
+        await logoutServer(rt);
+      }
+    } catch (err) {
+      console.log("서버 로그아웃 실패", err);
+    } finally {
+      set({ isLoggedIn: false, user: null, accessToken: null, refreshToken: null });
+      console.log("로그아웃 완료");
+    }
   },
   initSession: async () => false, // 새로고침 시 로그인 유지 기능은 나중에 구현 예정
 }));

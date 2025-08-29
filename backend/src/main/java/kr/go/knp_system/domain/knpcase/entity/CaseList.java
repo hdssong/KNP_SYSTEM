@@ -31,7 +31,7 @@ public class CaseList extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "case_idnum", length = 50)
     private String caseIdnum; // 사건번호 (승인 시 생성)

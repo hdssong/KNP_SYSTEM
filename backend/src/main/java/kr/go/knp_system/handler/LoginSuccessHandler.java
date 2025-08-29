@@ -27,7 +27,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 
         // username, role
         String emIdNum =  authentication.getName();
-        String emName = authentication.getName();
         String role = authentication.getAuthorities().iterator().next().getAuthority();
 
         // JWT(Access/Refresh) 발급
@@ -35,7 +34,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
         String refreshToken = JWTUtil.createJWT(emIdNum, role, false);
 
         // 발급한 Refresh DB 테이블 저장 (Refresh whitelist)
-        jwtService.addRefresh(emIdNum, emName, refreshToken);
+        jwtService.addRefresh(emIdNum, refreshToken);
 
         // 응답
         response.setContentType("application/json");

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { TextField, Button, Typography, Card, Box, CardContent } from "@mui/material";
 import useAuthStore from "../../store/authStore";
 import logo from "../../assets/logo.png";
-import { login } from "../../api/auth";
 
 const LoginWrapper = styled.div`
   display: flex;
@@ -52,15 +51,15 @@ const Login = () => {
     if (!emIdNum.trim() || !emPasswd.trim()) {
       return alert("아이디와 비밀번호를 모두 입력해주세요!");
     }
-
+    console.log("보낼 로그인 데이터:", {
+      emIdNum,
+      emPasswd,
+    });
     try {
-      const data = await login({ emIdNum, emPasswd });
-      console.log("응답 데이터", data);
-      loginUser(data);
-      localStorage.setItem("auth", JSON.stringify(data));
+      const data = await loginUser({ emIdNum, emPasswd });
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
+      console.log("로그인 실패: ", error);
       alert(error.response?.data?.message || "로그인에 실패했습니다.");
     }
   };

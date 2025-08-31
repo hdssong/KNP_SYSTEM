@@ -19,11 +19,12 @@ import kr.go.knp_system.util.JWTUtil;
 
 public class JWTFilter extends OncePerRequestFilter {
 
-      @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
         String authorization = request.getHeader("Authorization");
-        
+
         if (authorization == null) {
             filterChain.doFilter(request, response);
             return;

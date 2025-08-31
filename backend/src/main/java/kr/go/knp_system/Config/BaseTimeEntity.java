@@ -1,9 +1,9 @@
-package kr.go.knp_system.domain.knpreport.entity;
+package kr.go.knp_system.config;
 
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
@@ -20,7 +20,7 @@ public abstract class BaseTimeEntity {
     @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
-    @LastModifiedBy
+    @LastModifiedDate
     @Column(name = "updated_at", updatable = false, insertable = false,nullable = false)
     private LocalDateTime updatedAt;
 }

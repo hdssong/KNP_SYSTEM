@@ -1,6 +1,10 @@
-package kr.go.knp_system.domain.knpmember.service;
+package kr.go.knp_system.domain.member.service;
+
+import java.util.NoSuchElementException;
 
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -8,10 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.go.knp_system.domain.jwt.service.JwtService;
-import kr.go.knp_system.domain.knpmember.dto.LoginRequestDto;
-import kr.go.knp_system.domain.knpmember.dto.MemberDetails;
-import kr.go.knp_system.domain.knpmember.entity.KnpMember;
-import kr.go.knp_system.domain.knpmember.repository.LoginRepository;
+import kr.go.knp_system.domain.member.dto.LoginRequestDto;
+import kr.go.knp_system.domain.member.dto.LoginResponseDto;
+import kr.go.knp_system.domain.member.dto.MemberDetails;
+import kr.go.knp_system.domain.member.entity.KnpMember;
+import kr.go.knp_system.domain.member.repository.LoginRepository;
 
 @Service
 public class KnpMemberService implements UserDetailsService {
@@ -24,7 +29,6 @@ public class KnpMemberService implements UserDetailsService {
         this.jwtService = jwtService;
     }
 
-    // 자체 로그인
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String emIdNum) throws UsernameNotFoundException {
@@ -33,8 +37,17 @@ public class KnpMemberService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + emIdNum));
 
         System.out.println(user);
-        return new MemberDetails(user); // MemberDetails는 KnpMember 받도록
+
+        return new MemberDetails(user);
     }
+
+    @Transactional(readOnly = true)
+    public LoginResponseDto getInfo(){
+        String emIdNum = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        return loginRepository.findHomeUserInfo(emIdNum).orElseThrow(() -> new NoSuchElementException("인사 기록이 없습니다"));
+
+    } 
 
     @Transactional
     public void deleteUser(LoginRequestDto dto) throws AccessDeniedException {

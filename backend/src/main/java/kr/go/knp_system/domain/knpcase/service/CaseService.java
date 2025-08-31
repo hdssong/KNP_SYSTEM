@@ -11,7 +11,6 @@ import kr.go.knp_system.domain.knpcase.dto.CaseSaveDto;
 import kr.go.knp_system.domain.knpcase.dto.CaseUpdateDto;
 import kr.go.knp_system.domain.knpcase.entity.CaseList;
 import kr.go.knp_system.domain.knpcase.repository.CaseRepository;
-import kr.go.knp_system.domain.knpmember.repository.KnpHRRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -20,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 public class CaseService {
 
     private final CaseRepository caseRepository;
-    private final KnpHRRepository knpHRRepository;
 
     // 사건 조회 (전체 리스트)
     @Transactional(readOnly = true)

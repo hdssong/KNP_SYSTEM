@@ -19,8 +19,8 @@ public class WebConfig {
                         .allowedOrigins("http://localhost:5173") // 허용할 origin React dev 서버
                         .allowedMethods("GET","POST","PUT","DELETE","OPTIONS") // GET, POST 등
                         .allowCredentials(true)
-                        .allowedHeaders("*")
-                        .exposedHeaders("Set-Cookies","Authorization");
+                        .allowedHeaders("")
+                        .exposedHeaders("Set-Cookies","Authorization","Content-Type");
             }
         };
     }

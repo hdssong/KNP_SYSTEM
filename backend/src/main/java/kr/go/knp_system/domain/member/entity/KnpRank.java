@@ -1,9 +1,7 @@
-package kr.go.knp_system.domain.knpmember.entity;
+package kr.go.knp_system.domain.member.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;

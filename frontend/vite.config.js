@@ -9,6 +9,7 @@ export default defineConfig({
     proxy: {
       "/auth": "http://localhost:8080",
       "/api": "http://localhost:8080",
+      "/cases": "http://localhost:8080",
     },
   },
   build: {

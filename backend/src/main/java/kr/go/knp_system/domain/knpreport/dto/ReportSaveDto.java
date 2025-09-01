@@ -38,9 +38,6 @@ public class ReportSaveDto {
             String reportType,
             String location, String reportTitle, String reportContents, String reportStatus, String emIdNum,
             String orgAgency) {
-        // this.id = id;
-        // this.reportId = reportId;
-        // this.reportDateTime = reportDateTime;
         this.reportCategory = reportCategory;
         this.reportType = reportType;
         this.location = location;
@@ -53,9 +50,6 @@ public class ReportSaveDto {
 
     public Report toEntity() {
         return Report.builder()
-                // .id(id)
-                // .reportId(reportId)
-                // .reportDateTime(reportDateTime)
                 .reportCategory(reportCategory)
                 .reportType(reportType)
                 .location(location)

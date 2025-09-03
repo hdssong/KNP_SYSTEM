@@ -7,26 +7,17 @@ import lombok.Getter;
 
 @Getter
 public class ReportResponseDto {
+    
     private Long id;
-
     private String reportId;
-
     private LocalDate reportDateTime;
-
     private String reportCategory;
-
     private String reportType;
-
     private String location;
-
     private String reportTitle;
-
     private String reportContents;
-
     private String reportStatus;
-
     private String emIdNum;
-
     private String orgAgency;
 
     public ReportResponseDto (Report entity) {
@@ -39,7 +30,7 @@ public class ReportResponseDto {
         this.reportTitle = entity.getReportTitle();
         this.reportContents = entity.getReportContents();
         this.reportStatus = entity.getReportStatus();
-        this.emIdNum = entity.getEmIdNum();
+        this.emIdNum = entity.getKnpMember().getEmIdNum();
         this.orgAgency = entity.getOrgAgency();
     }
 }

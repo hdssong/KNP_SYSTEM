@@ -24,13 +24,8 @@ public class ReportSaveDto {
     private String location;
 
     private String reportTitle;
-
     private String reportContents;
-
     private String reportStatus;
-
-    private String emIdNum;
-
     private String orgAgency;
 
     @Builder

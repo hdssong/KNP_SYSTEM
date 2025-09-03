@@ -2,6 +2,7 @@ package kr.go.knp_system.domain.knpreport.controller;
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,15 +24,14 @@ public class ReportApiController {
     }
 
     // 신고 접수 내역
-    @GetMapping
+    @GetMapping("/report_list")
     public List<ReportResponseDto> getAllReports(){
         return reportService.findAll();
     }
 
     // 신고 접수 등록
-
     @PostMapping("/regist_save")
-    public Long save(@RequestBody ReportSaveDto requestDto){
+    public Long save(@RequestBody ReportSaveDto requestDto,Authentication authentication){
         return reportService.save(requestDto);
     }
 }

@@ -3,12 +3,16 @@ package kr.go.knp_system.domain.knpreport.entity;
 import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import kr.go.knp_system.config.BaseTimeEntity;
+import kr.go.knp_system.domain.member.entity.KnpMember;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,8 +54,9 @@ public class Report extends BaseTimeEntity {
     @Column(name = "report_status", length = 20,nullable = false)
     private String reportStatus; // 신고 상태 (접수, 처리중, 완료, 반려)
 
-    @Column(name = "em_idnum", length = 20,nullable = false)
-    private String emIdNum; // 사번
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "em_idnum",referencedColumnName = "em_idnum",nullable = false)
+    private KnpMember knpMember;
 
     @Column(name = "org_agency", length = 20,nullable = false)
     private String orgAgency; // 소속
@@ -63,7 +68,7 @@ public class Report extends BaseTimeEntity {
 
     @Builder
     public Report(String reportId, LocalDate reportDateTime, String reportCategory, String reportType,
-            String location, String reportTitle, String reportContents, String reportStatus, String emIdNum,
+            String location, String reportTitle, String reportContents, String reportStatus, KnpMember knpMember,
             String orgAgency) {
         this.reportId = reportId;
         this.reportDateTime = reportDateTime;
@@ -73,7 +78,7 @@ public class Report extends BaseTimeEntity {
         this.reportTitle = reportTitle;
         this.reportContents = reportContents;
         this.reportStatus = reportStatus;
-        this.emIdNum = emIdNum;
+        this.knpMember = knpMember;
         this.orgAgency = orgAgency;
     }
 

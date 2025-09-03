@@ -1,12 +1,18 @@
 package kr.go.knp_system.domain.knpreport.service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.go.knp_system.domain.knpreport.dto.ReportSaveDto;
 import kr.go.knp_system.domain.knpreport.repository.ReportRepository;
+import kr.go.knp_system.domain.member.dto.LoginResponseDto;
+import kr.go.knp_system.domain.member.entity.KnpMember;
+import kr.go.knp_system.domain.member.repository.LoginRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -14,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class ReportService {
 
     private final ReportRepository reportRepository;
+    private final LoginRepository loginRepository;
 
     @Transactional(readOnly = true)
     public List<ReportResponseDto> findAll() {
@@ -25,8 +32,16 @@ public class ReportService {
 
     @Transactional
     public Long save(ReportSaveDto reportSaveDto) {
-        return reportRepository.save(reportSaveDto.toEntity()).getId();
+
+        String emIdNum = SecurityContextHolder.getContext().getAuthentication().getName();
+        KnpMember user = loginRepository.findByEmIdNum(emIdNum).orElseThrow(
+                () -> new UsernameNotFoundException("작성자 없음 : " + emIdNum));
+
+        String orgAgency = loginRepository.findHomeUserInfo(emIdNum)
+                .map(LoginResponseDto::getOrg_full_path_name)
+                .orElseThrow(() -> new UsernameNotFoundException("사용자 소속된 정보 없음"));
+
+        return reportRepository.save(reportSaveDto.toEntity(user)).getId();
     }
 
-    
 }

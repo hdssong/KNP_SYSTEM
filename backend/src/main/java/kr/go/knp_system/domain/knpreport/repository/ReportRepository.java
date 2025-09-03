@@ -10,4 +10,6 @@ public interface ReportRepository extends JpaRepository<Report,Long>{
 
     // @Query("SELECT p FROM report ORDER BY p.id DESC")    
     List<Report> findAll();
+
+    
 } 

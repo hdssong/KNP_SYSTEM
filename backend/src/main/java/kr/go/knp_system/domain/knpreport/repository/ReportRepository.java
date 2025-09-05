@@ -1,6 +1,7 @@
 package kr.go.knp_system.domain.knpreport.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,6 +11,6 @@ public interface ReportRepository extends JpaRepository<Report,Long>{
 
     // @Query("SELECT p FROM report ORDER BY p.id DESC")    
     List<Report> findAll();
-
+    Optional<Report> findByReportId(String reportId);
     
 } 

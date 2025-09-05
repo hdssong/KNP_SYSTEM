@@ -1,6 +1,7 @@
 package kr.go.knp_system.domain.knpreport.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.go.knp_system.domain.knpcase.entity.CaseList;
 import kr.go.knp_system.domain.knpreport.dto.ReportSaveDto;
+import kr.go.knp_system.domain.knpreport.entity.Report;
 import kr.go.knp_system.domain.knpreport.service.ReportResponseDto;
 import kr.go.knp_system.domain.knpreport.service.ReportService;
 

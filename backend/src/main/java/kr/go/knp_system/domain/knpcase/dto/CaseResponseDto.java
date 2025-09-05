@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import kr.go.knp_system.domain.knpcase.entity.CaseList;
 import kr.go.knp_system.domain.knpcase.entity.CaseStatus;
+import kr.go.knp_system.domain.knpreport.entity.Report;
 import lombok.Getter;
 
 @Getter
@@ -11,6 +12,7 @@ public class CaseResponseDto {
     
     private long id;
     private String caseIdnum; // 사건번호 (승인 시 생성)
+    private Report report;
     private String reportId;   // 접수 번호 (참조)
     private String reportType; // 접수단서 (고소,타인신고,피해자신고)
     private LocalDateTime caseReceiveDate;  // 사건 접수 일자
@@ -30,7 +32,8 @@ public class CaseResponseDto {
     public CaseResponseDto (CaseList caseEntity){
         this.id = caseEntity.getId();
         this.caseIdnum = caseEntity.getCaseIdnum();
-        this.reportId = caseEntity.getReportId();
+        this.report = caseEntity.getReport();
+        // this.reportId = caseEntity.getreort();
         this.reportType = caseEntity.getReportType();
         this.caseReceiveDate = caseEntity.getCaseReceiveDate();
         this.caseEndDate = caseEntity.getCaseEndDate();

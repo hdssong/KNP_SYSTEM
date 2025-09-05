@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.go.knp_system.domain.knpreport.dto.ReportSaveDto;
 import kr.go.knp_system.domain.knpreport.repository.ReportRepository;
-import kr.go.knp_system.domain.member.dto.LoginResponseDto;
 import kr.go.knp_system.domain.member.entity.KnpMember;
 import kr.go.knp_system.domain.member.repository.LoginRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,10 +35,6 @@ public class ReportService {
         String emIdNum = SecurityContextHolder.getContext().getAuthentication().getName();
         KnpMember user = loginRepository.findByEmIdNum(emIdNum).orElseThrow(
                 () -> new UsernameNotFoundException("작성자 없음 : " + emIdNum));
-
-        String orgAgency = loginRepository.findHomeUserInfo(emIdNum)
-                .map(LoginResponseDto::getOrg_full_path_name)
-                .orElseThrow(() -> new UsernameNotFoundException("사용자 소속된 정보 없음"));
 
         return reportRepository.save(reportSaveDto.toEntity(user)).getId();
     }

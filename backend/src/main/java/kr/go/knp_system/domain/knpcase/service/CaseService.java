@@ -1,16 +1,21 @@
 package kr.go.knp_system.domain.knpcase.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.persistence.criteria.CriteriaBuilder.Case;
 import kr.go.knp_system.domain.knpcase.dto.CaseResponseDto;
 import kr.go.knp_system.domain.knpcase.dto.CaseSaveDto;
 import kr.go.knp_system.domain.knpcase.dto.CaseUpdateDto;
 import kr.go.knp_system.domain.knpcase.entity.CaseList;
 import kr.go.knp_system.domain.knpcase.repository.CaseRepository;
+import kr.go.knp_system.domain.knpreport.controller.ReportApiController;
+import kr.go.knp_system.domain.knpreport.entity.Report;
+import kr.go.knp_system.domain.knpreport.repository.ReportRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -19,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class CaseService {
 
     private final CaseRepository caseRepository;
+    private final ReportRepository reportRepository;
 
     // 사건 조회 (전체 리스트)
     @Transactional(readOnly = true)
@@ -47,6 +53,10 @@ public class CaseService {
     // 사건 등록
     @Transactional
     public Long save(CaseSaveDto caseSaveDto) {
+
+        Report getReportId = reportRepository.findByReportId(caseSaveDto.getReportId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 접수번호가 없음"));
+                
         return caseRepository.save(caseSaveDto.toEntity()).getId();
     }
     // 사건 수정
@@ -57,7 +67,7 @@ public class CaseService {
         CaseList caseOne = caseRepository.findById(caseIdnum)
                 .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
 
-        caseOne.update(dto.getCaseData(), dto.getCrimeResearchData(),dto.getEvidenceFile());
+        caseOne.update(dto.getCaseData(), dto.getCrimeResearchData(), dto.getEvidenceFile());
 
         return caseOne.getId();
 

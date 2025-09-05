@@ -9,8 +9,11 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import kr.go.knp_system.config.BaseTimeEntity;
+import kr.go.knp_system.domain.knpreport.entity.Report;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,12 +35,13 @@ public class CaseList extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    
+    @OneToOne
+    @JoinColumn(name = "report_id")
+    private Report report;
 
     @Column(name = "case_idnum", length = 50)
     private String caseIdnum; // 사건번호 (승인 시 생성)
-
-    @Column(name = "report_id", nullable = false, length = 50)
-    private String reportId; // 접수 번호 (참조)
 
     @Column(name = "report_type", length = 50)
     private String reportType; // 접수단서 (고소,타인신고,피해자신고)
@@ -83,11 +87,11 @@ public class CaseList extends BaseTimeEntity {
     private String closureIdnum; // 종결번호
 
     @Builder
-    public CaseList(String caseIdNum, String reportId, String reportType, LocalDateTime caseReceiveDate,
+    public CaseList(String caseIdNum, Report report, String reportType, LocalDateTime caseReceiveDate,
             LocalDateTime caseEndDate, LocalDateTime occurDate, String caseCharge, String caseData,String crimeResearchData,
             int ongoingDate, CaseStatus caseStatus,String suspect, String victim, String emName, String evidenceFile,String closureIdnum) {
         this.caseIdnum = caseIdNum;
-        this.reportId = reportId;
+        this.report = report;
         this.reportType = reportType;
         this.caseReceiveDate = caseReceiveDate;
         this.caseEndDate = caseEndDate;

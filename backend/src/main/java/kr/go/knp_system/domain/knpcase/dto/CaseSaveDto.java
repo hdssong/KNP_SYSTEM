@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import kr.go.knp_system.domain.knpcase.entity.CaseList;
 import kr.go.knp_system.domain.knpcase.entity.CaseStatus;
+import kr.go.knp_system.domain.knpreport.entity.Report;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CaseSaveDto {
 
-    private long id;
-    private String caseIdnum; // 사건번호 (승인 시 생성)
+    // private long id;
+    // private String caseIdnum; // 사건번호 (승인 시 생성)
+    private Report report;
     private String reportId; // 접수 번호 (참조)
     private String reportType; // 접수단서 (고소,타인신고,피해자신고)
     private LocalDateTime caseReceiveDate; // 사건 접수 일자
@@ -30,26 +32,25 @@ public class CaseSaveDto {
     private String closureIdnum; // 종결번호
 
     @Builder
-    public CaseSaveDto(String caseIdNum, String reportId, String reportType, String caseCharge, String caseData,
+    public CaseSaveDto(String reportId, String caseCharge, String caseData,
             int ongoingDate, CaseStatus caseStatus, String suspect, String victim, String emName, String closureIdnum) {
-        this.caseIdnum = caseIdNum;
+        // this.caseIdnum = caseIdNum;
         this.reportId = reportId;
-        this.reportType = reportType;
         this.caseCharge = caseCharge;
         this.caseData = caseData;
-        this.ongoingDate = ongoingDate;
-        this.caseStatus = caseStatus;
+        // this.ongoingDate = ongoingDate;
+        // this.caseStatus = caseStatus;
         this.suspect = suspect;
         this.victim = victim;
         this.emName = emName;
-        this.closureIdnum = closureIdnum;
+        // this.closureIdnum = closureIdnum;
     }
 
     public CaseList toEntity(){
         return CaseList.builder()
-            .caseIdNum(caseIdnum)
-            .reportId(reportId)
-            .reportType(reportType)
+            // .caseIdNum(caseIdnum)
+            .report(report)
+            .reportType(report.getReportType())
             .caseReceiveDate(caseReceiveDate)
             .caseEndDate(caseEndDate)
             .occurDate(occurDate)
@@ -60,7 +61,7 @@ public class CaseSaveDto {
             .suspect(suspect)
             .victim(victim)
             .emName(emName)
-            .closureIdnum(closureIdnum)
+            // .closureIdnum(closureIdnum)
             .build();
     }
 }

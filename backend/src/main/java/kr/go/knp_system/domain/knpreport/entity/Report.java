@@ -1,6 +1,8 @@
 package kr.go.knp_system.domain.knpreport.entity;
 
 import java.time.LocalDate;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,9 +11,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import kr.go.knp_system.config.BaseTimeEntity;
+import kr.go.knp_system.domain.knpcase.entity.CaseList;
 import kr.go.knp_system.domain.member.entity.KnpMember;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -60,6 +64,9 @@ public class Report extends BaseTimeEntity {
 
     @Column(name = "org_agency", length = 20,nullable = false)
     private String orgAgency; // 소속
+
+    @OneToOne(mappedBy = "report", cascade = CascadeType.ALL)
+    private CaseList caseList;
 
     @PrePersist
     public void prePersist() {
